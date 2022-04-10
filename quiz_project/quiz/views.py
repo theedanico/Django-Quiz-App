@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
 from django.contrib.auth.decorators import login_required
+from .models import Question,Option
+import json
 
 
 from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
@@ -12,6 +14,30 @@ from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 
 def home(request):
     return render(request, 'quiz/index.html')
+
+def addQuestion(request):
+    if request.method == "POST":
+        quistionText = request.POST.get('quistion_text')
+        option_text = request.POST.get('option_text')
+        options = request.POST.get('options')
+        if not quistionText or not option_text:
+                messages.error(request, "Please add question text")
+                messages.error(request, "Please add default option")  
+        else:        
+                options = json.loads(options)
+                mQuestion = Question()
+                mQuestion.quistion_text = quistionText
+                mQuestion.save()
+
+                for option in options :
+                    mOption =Option()
+                    mOption.option_text = option
+                    if option_text==option:
+                        mOption.question = mQuestion
+                    mOption.save()  
+                    messages.success(request, "Question added successfully")
+            
+    return render(request, 'quiz/add_question.html')    
 
 
 class RegisterView(View):

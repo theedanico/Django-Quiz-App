@@ -33,3 +33,22 @@ class Quiz(models.Model):
     def __str__(self):
         return self.quiz_name
 
+
+class Question(models.Model):
+    quistion_text = models.TextField(null=False)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='quiz')
+
+    def __str__(self):
+        return self.id       
+
+class Option(models.Model):
+    option_text = models.TextField(null=False)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question')
+    is_correct = models.TextField(default=False)
+
+    def __str__(self):
+        return self.id             
+
+
+
+
