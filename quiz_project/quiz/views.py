@@ -15,6 +15,12 @@ from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 def home(request):
     return render(request, 'quiz/index.html')
 
+def deleteQuestion(request,quest_id):
+    if quest_id:
+       Question.objects.filter(id = quest_id).delete() 
+    questions =  Question.objects.filter(quiz_id = 1).all
+    return redirect("add_question")
+
 def addQuestion(request):
     if request.method == "POST":
         quistionText = request.POST.get('quistion_text')

@@ -45,7 +45,7 @@
         <tr>
           <th scope="row">{{quest.id}}</th>
           <td class="w-75">{{quest.quistion_text}}</td>
-          <td><a href="#" class="text-danger">delete</a> &nbsp;<a href="#" class="text-warning">edit</a></td>
+          <td><a href="{% url 'delete_question' quest_id=quest.id %}"  class="text-danger">delete</a> &nbsp;<a href="#" class="text-warning">edit</a></td>
         </tr>
         {% endfor %}
       </tbody>
