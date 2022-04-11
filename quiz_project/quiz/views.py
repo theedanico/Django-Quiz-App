@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
 from django.contrib.auth.decorators import login_required
-from .models import Question,Option
+from .models import Question,Option,Quiz
 import json
 
 
@@ -27,17 +27,21 @@ def addQuestion(request):
                 options = json.loads(options)
                 mQuestion = Question()
                 mQuestion.quistion_text = quistionText
+                mQuestion.quiz = Quiz.objects.filter(id = 1).first()
                 mQuestion.save()
 
                 for option in options :
                     mOption =Option()
                     mOption.option_text = option
+                    mOption.question = mQuestion
                     if option_text==option:
-                        mOption.question = mQuestion
+                        mOption.is_correct = True
                     mOption.save()  
                     messages.success(request, "Question added successfully")
-            
-    return render(request, 'quiz/add_question.html')    
+
+    
+    questions =  Question.objects.filter(quiz_id = 1).all
+    return render(request, 'quiz/add_question.html',{"itemsQuestions": questions})    
 
 
 class RegisterView(View):

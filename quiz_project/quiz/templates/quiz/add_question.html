@@ -41,11 +41,13 @@
         </tr>
       </thead>
       <tbody>
+        {% for quest in itemsQuestions %}
         <tr>
-          <th scope="row">1</th>
-          <td class="w-75">Otto</td>
+          <th scope="row">{{quest.id}}</th>
+          <td class="w-75">{{quest.quistion_text}}</td>
           <td><a href="#" class="text-danger">delete</a> &nbsp;<a href="#" class="text-warning">edit</a></td>
         </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>
