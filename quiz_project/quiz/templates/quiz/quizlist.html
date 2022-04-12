@@ -1,0 +1,56 @@
+{% extends 'quiz/home.html'%}
+
+<style>
+    .attempt {
+    --gradient: linear-gradient(to left top, #c724dd 10%, #aaaaaa 90%) !important;}
+    .card {
+    background: #222;
+    border: 1px solid #7a24dd;
+    color: rgba(250, 250, 250, 0.8);
+    margin-bottom: 3rem;}
+  
+
+  #btn {
+    border: 5px solid;
+    border-image-slice: 1;
+    background: var(--gradient) !important;
+    
+    -webkit-text-fill-color: transparent !important;
+    border-image-source: var(--gradient) !important;
+    text-decoration: none;
+    position: relative;
+    left: 80px;
+  }
+
+  
+</style>
+
+
+{% block innercontent %}
+
+<!-- cards -->
+<div class="container">
+    <div class="container mx-auto mt-2">
+      <div class="row">
+  
+        {% for i in quiz %}
+        <div class="col-md-4">
+          <div class="card" style="width: 21rem;">
+            <div class="card-body">
+              <h5 class="card-title" style="text-align: center;">{{i.quiz_name}}</h5>
+              <br>
+              <p class="card-text">{{i.description}}</p>
+              <br>
+              <button data-bs-target="#exampleModal" data-bs-toggle="modal" 
+                 data-name="{{i.quiz_name}}" data-id="{{i.id}}" id="btn"
+                style="justify-content: center;" class="attempt btn mr-2 modal-button"><i class="fas fa-link"></i>Attempt
+                Quiz</button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+{% endblock innercontent %}

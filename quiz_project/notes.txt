@@ -1,4 +1,6 @@
 packages installed: django, Pillow, python-dotenv, social-auth-app-django
 Authentication logic added
-#gonna correct the design soon
-# gonna add the "Create quiz form"
+Add Quiz form added, explore quizzes (list of quizzes) added
+
+#gonna clean the code soon
+#fix the design
