@@ -18,16 +18,13 @@ from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 def home(request):
     return render(request, 'quiz/index.html')
 
-<<<<<<< HEAD
-def deleteQuestion(request,quiz_id,quest_id):
-=======
+
 def exploreQuiz(request):
     quiz = Quiz.objects.all()
     quiz_set = {'quiz': quiz}
     return render(request, 'quiz/quizlist.html', quiz_set)
 
-def deleteQuestion(request,quest_id):
->>>>>>> 947d4ef2caf804fc7259508278c8f6233d7fce8c
+def deleteQuestion(request,quiz_id,quest_id):
     if quest_id:
        Question.objects.filter(id = quest_id).delete() 
     return redirect(f"../../question/{quiz_id}")
