@@ -30,7 +30,7 @@ def takeQuiz(request,quiz_id):
     return render(request, 'quiz/take_quiz.html',{"quiz_content":quiz_content,"quiz":quiz})
 
 def exploreQuiz(request):
-    quiz = Quiz.objects.all()
+    quiz = Quiz.objects.filter(is_public=True)
     quiz_set = {'quiz': quiz}
     return render(request, 'quiz/quizlist.html', quiz_set)
 
