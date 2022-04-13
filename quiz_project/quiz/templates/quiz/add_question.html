@@ -10,7 +10,11 @@
     <form role="form" method="post" >
       {% csrf_token %}
     <label for="exampleFormControlTextarea1" class="form-label">Question content</label>
-    <textarea class="form-control" name="quistion_text" rows="3"></textarea>
+    <textarea class="form-control" name="quistion_text" rows="3">
+    {% if selectedQuestion %}
+        {{ selectedQuestion.quistion_text }}
+    {% endif %}
+    </textarea>
     <br/>  <br/>
     <div class="card">
       <div class="card-body">
@@ -45,7 +49,8 @@
         <tr>
           <th scope="row">{{quest.id}}</th>
           <td class="w-75">{{quest.quistion_text}}</td>
-          <td><a href="{% url 'delete_question' quest_id=quest.id %}"  class="text-danger">delete</a> &nbsp;<a href="#" class="text-warning">edit</a></td>
+          <td><a href="{% url 'delete_question' quest_id=quest.id quiz_id=quiz_id  %}"  class="text-danger">delete</a> 
+            <!-- &nbsp;<a href="{% url 'edit_question' quest_id=quest.id quiz_id=quiz_id %}" class="text-warning">edit</a></td> -->
         </tr>
         {% endfor %}
       </tbody>
@@ -54,10 +59,7 @@
 </div>
 </div>
 <script>
- 
-
- var data = []
-
+ var data =[]
 var addoption = document.getElementById("addoption");
 var optiontext = document.getElementById("option_text");
 var options_check_list = document.getElementById("options_check_list");

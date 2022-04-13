@@ -15,13 +15,43 @@ from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 def home(request):
     return render(request, 'quiz/index.html')
 
-def deleteQuestion(request,quest_id):
+def deleteQuestion(request,quiz_id,quest_id):
     if quest_id:
        Question.objects.filter(id = quest_id).delete() 
-    questions =  Question.objects.filter(quiz_id = 1).all
-    return redirect("add_question")
+    return redirect(f"../../question/{quiz_id}")
 
-def addQuestion(request):
+def editQuestion(request,quiz_id,quest_id):
+    questions =  Question.objects.filter(quiz_id = quiz_id).all
+    if request.method == "POST":
+        quistionText = request.POST.get('quistion_text')
+        option_text = request.POST.get('option_text')
+        options = request.POST.get('options')
+        if not quistionText or not option_text:
+                messages.error(request, "Please add question text")
+                messages.error(request, "Please add default option")  
+        else:        
+                options = json.loads(options)
+                mQuestion = Question.objects.first()
+                mQuestion.quistion_text = quistionText
+                mQuestion.quiz = Quiz.objects.filter(id = quiz_id).first()
+                mQuestion.save()
+
+                for option in options :
+                    mOption =Option()
+                    mOption.option_text = option
+                    mOption.question = mQuestion
+                    if option_text==option:
+                        mOption.is_correct = True
+                    mOption.save()  
+                    messages.success(request, "Question updated successfully")
+        return redirect(f"../../question/{quiz_id}")
+    
+    if quest_id:
+       selectedQuestion =  Question.objects.filter(id = quest_id).first() 
+       options = Option.objects.filter(quest_id = quest_id).all()
+    return render(request, 'quiz/add_question.html',{"itemsQuestions": questions,"selectedQuestion":selectedQuestion,"quiz_id":quiz_id,"options":options})        
+
+def addQuestion(request,quiz_id):
     if request.method == "POST":
         quistionText = request.POST.get('quistion_text')
         option_text = request.POST.get('option_text')
@@ -33,7 +63,7 @@ def addQuestion(request):
                 options = json.loads(options)
                 mQuestion = Question()
                 mQuestion.quistion_text = quistionText
-                mQuestion.quiz = Quiz.objects.filter(id = 1).first()
+                mQuestion.quiz = Quiz.objects.filter(id = quiz_id).first()
                 mQuestion.save()
 
                 for option in options :
@@ -46,8 +76,8 @@ def addQuestion(request):
                     messages.success(request, "Question added successfully")
 
     
-    questions =  Question.objects.filter(quiz_id = 1).all
-    return render(request, 'quiz/add_question.html',{"itemsQuestions": questions})    
+    questions =  Question.objects.filter(quiz_id = quiz_id).all
+    return render(request, 'quiz/add_question.html',{"itemsQuestions": questions,"quiz_id":quiz_id})    
 
 
 class RegisterView(View):
