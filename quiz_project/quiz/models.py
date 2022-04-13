@@ -36,6 +36,7 @@ class Quiz(models.Model):
     def get_questions(self):
         return self.question_set.all()
 
+          
 
 class Question(models.Model):
     quistion_text = models.TextField(null=False)
@@ -52,7 +53,13 @@ class Option(models.Model):
     is_correct = models.TextField(default=False)
 
     def __str__(self):
-        return self.id             
+        return self.id     
+
+
+
+class QuestionOptions:
+        mQuestion = None
+        options = []              
 
 
 

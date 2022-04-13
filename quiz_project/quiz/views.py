@@ -5,19 +5,29 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
 from django.contrib.auth.decorators import login_required
-from .models import Question,Option,Quiz
+from .models import Question,Option,Quiz,QuestionOptions
 import json
 from .forms import QuizForm, QuestionForm
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 
 
-from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
-
+from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm       
 
 def home(request):
     return render(request, 'quiz/index.html')
 
+def takeQuiz(request,quiz_id):
+    quiz     =  Quiz.objects.filter(id = quiz_id).first() 
+    questions =  Question.objects.filter(quiz_id = quiz_id).all() 
+    quiz_content = []
+    for quest in questions :
+       q  = QuestionOptions()
+       q.mQuestion = quest
+       q.options = Option.objects.filter(question = quest.id).all() 
+       quiz_content.append(q)
+    
+    return render(request, 'quiz/take_quiz.html',{"quiz_content":quiz_content,"quiz":quiz})
 
 def exploreQuiz(request):
     quiz = Quiz.objects.all()
