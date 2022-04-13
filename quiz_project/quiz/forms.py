@@ -1,8 +1,10 @@
+from dataclasses import fields
+from pyexpat import model
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-from .models import Profile
+from .models import Profile, Quiz, Question
 
 
 class RegisterForm(UserCreationForm):
@@ -86,3 +88,15 @@ class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['avatar', 'bio']
+
+
+class QuizForm(forms.ModelForm):
+    class Meta:
+        model = Quiz
+        fields = "__all__"
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = "__all__"
+    

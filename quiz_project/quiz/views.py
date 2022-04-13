@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView
 from django.contrib import messages
@@ -7,6 +7,9 @@ from django.views import View
 from django.contrib.auth.decorators import login_required
 from .models import Question,Option,Quiz
 import json
+from .forms import QuizForm, QuestionForm
+from django.http import JsonResponse
+from django.contrib.auth.models import User
 
 
 from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
@@ -15,7 +18,16 @@ from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
 def home(request):
     return render(request, 'quiz/index.html')
 
+<<<<<<< HEAD
 def deleteQuestion(request,quiz_id,quest_id):
+=======
+def exploreQuiz(request):
+    quiz = Quiz.objects.all()
+    quiz_set = {'quiz': quiz}
+    return render(request, 'quiz/quizlist.html', quiz_set)
+
+def deleteQuestion(request,quest_id):
+>>>>>>> 947d4ef2caf804fc7259508278c8f6233d7fce8c
     if quest_id:
        Question.objects.filter(id = quest_id).delete() 
     return redirect(f"../../question/{quiz_id}")
@@ -78,6 +90,30 @@ def addQuestion(request,quiz_id):
     
     questions =  Question.objects.filter(quiz_id = quiz_id).all
     return render(request, 'quiz/add_question.html',{"itemsQuestions": questions,"quiz_id":quiz_id})    
+  
+@login_required
+def addQuiz(request):
+    if request.method=="POST":
+        form = QuizForm(data=request.POST)
+        if form.is_valid():
+            quiz = form.save(commit=False)
+            quiz.save()
+            messages.success(request, 'Your Quizz has been created successfully')
+            return redirect(to = 'myquizzes' )
+    else:
+        form=QuizForm()
+    
+    return render(request, "quiz/add_quiz.html", {'form':form})
+@login_required
+def myquizzes(request, pk=None):
+    if pk:
+        quiz_owner = get_object_or_404(User, pk=pk)
+        user_quizzes = Quiz.objects.filter(author=request.user)
+    else:
+        quiz_owner = request.user
+        user_quizzes = Quiz.objects.filter(author=request.user)
+        
+    return render(request, 'quiz/myquizzes.html', {'quiz_owner': quiz_owner, 'user_quizzes': user_quizzes})
 
 
 class RegisterView(View):
@@ -162,5 +198,7 @@ def profile(request):
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request, 'quiz/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+
 
 

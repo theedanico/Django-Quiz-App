@@ -27,11 +27,14 @@ class Profile(models.Model):
 
 class Quiz(models.Model):
     quiz_name = models.CharField(max_length=100, null=False)
+    description = models.CharField(max_length=500, default='No description added')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='quiz')
     is_public = models.BooleanField()
 
     def __str__(self):
         return self.quiz_name
+    def get_questions(self):
+        return self.question_set.all()
 
 
 class Question(models.Model):
@@ -39,7 +42,9 @@ class Question(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='quiz')
 
     def __str__(self):
-        return self.id       
+        return self.id  
+    def get_answers(self):
+        return self.option_set.all()     
 
 class Option(models.Model):
     option_text = models.TextField(null=False)
