@@ -20,7 +20,7 @@ def home(request):
 
 
 def exploreQuiz(request):
-    quiz = Quiz.objects.all()
+    quiz = Quiz.objects.filter(is_public=True)
     quiz_set = {'quiz': quiz}
     return render(request, 'quiz/quizlist.html', quiz_set)
 
