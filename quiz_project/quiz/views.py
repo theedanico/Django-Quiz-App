@@ -18,14 +18,39 @@ def home(request):
     return render(request, 'quiz/index.html')
 
 def takeQuiz(request,quiz_id):
+    totalScore = 0
+    totalCorrect = 0
     quiz     =  Quiz.objects.filter(id = quiz_id).first() 
     questions =  Question.objects.filter(quiz_id = quiz_id).all() 
     quiz_content = []
+    quizs_answers = {}
     for quest in questions :
        q  = QuestionOptions()
        q.mQuestion = quest
        q.options = Option.objects.filter(question = quest.id).all() 
        quiz_content.append(q)
+       for option in q.options:
+           if option.is_correct : 
+               quizs_answers[quest.id] = option.option_text
+        
+    if request.method == "POST":
+        email = request.POST.get('email')
+        name = request.POST.get('name')
+        if not email or not name:
+            messages.error(request, "Email is required ")
+            messages.error(request, "Name is required ") 
+        else :
+             for quest in questions : 
+                  totalScore += 1
+                  ans = request.POST.get(str(quest.id))
+                  if ans and quizs_answers[quest.id] == ans:
+                      totalCorrect+=1 
+                  finalScore = round(totalCorrect/totalScore*100)
+
+             if finalScore > 50 :
+                     messages.success(request, f"Congratulations you passed quiz :)) you scored {finalScore}")
+             else : 
+                      messages.error(request, f"Unfortunately you failed to pass quiz :(( you scored {finalScore}")                                                        
     
     return render(request, 'quiz/take_quiz.html',{"quiz_content":quiz_content,"quiz":quiz})
 
