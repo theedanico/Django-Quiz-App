@@ -1,4 +1,6 @@
 
+import email
+from operator import mod
 from django.db import models
 from django.contrib.auth.models import User
 from PIL import Image
@@ -61,6 +63,13 @@ class QuestionOptions:
         mQuestion = None
         options = []              
 
+class Score(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='quiz_score')
+    email = models.EmailField(max_length=70)
+    name = models.CharField(max_length=100)
+    score = models.IntegerField()
 
+    def __str__(self):
+        return str(self.quiz)
 
 

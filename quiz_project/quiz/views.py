@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views import View
 from django.contrib.auth.decorators import login_required
-from .models import Question,Option,Quiz,QuestionOptions
+from .models import Question,Option,Quiz,QuestionOptions, Score
 import json
 from .forms import QuizForm, QuestionForm
 from django.http import JsonResponse
@@ -50,9 +50,20 @@ def takeQuiz(request,quiz_id):
              if finalScore > 50 :
                      messages.success(request, f"Congratulations you passed quiz :)) you scored {finalScore}")
              else : 
-                      messages.error(request, f"Unfortunately you failed to pass quiz :(( you scored {finalScore}")                                                        
-    
+                      messages.error(request, f"Unfortunately you failed to pass quiz :(( you scored {finalScore}") 
+                                                           
+        Score.objects.create(quiz=quiz, score=finalScore, name=name,email=email)
     return render(request, 'quiz/take_quiz.html',{"quiz_content":quiz_content,"quiz":quiz})
+    
+
+def results(request, quiz_id):
+    marks = Score.objects.filter(quiz_id = quiz_id).all()
+    return render(request, 'quiz/results.html', {'marks':marks})
+
+def all_results(request):
+    marks = Score.objects.all()
+    return render (request, 'quiz/results.html', {'marks':marks})
+
 
 def exploreQuiz(request):
     quiz = Quiz.objects.filter(is_public=True)
