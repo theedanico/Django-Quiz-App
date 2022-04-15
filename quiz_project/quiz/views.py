@@ -142,14 +142,16 @@ def addQuiz(request):
     if request.method=="POST":
         form = QuizForm(data=request.POST)
         if form.is_valid():
+            
             quiz = form.save(commit=False)
+            quiz.author = request.user
             quiz.save()
             messages.success(request, 'Your Quizz has been created successfully')
-            return redirect(to = 'myquizzes' )
-    else:
-        form=QuizForm()
-    
-    return render(request, "quiz/add_quiz.html", {'form':form})
+
+    form=QuizForm()
+    user_quizzes = Quiz.objects.filter(author=request.user)
+
+    return render(request, "quiz/add_quiz.html", {'form':form,'user_quizzes': user_quizzes})
 @login_required
 def myquizzes(request, pk=None):
     if pk:

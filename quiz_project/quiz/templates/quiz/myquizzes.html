@@ -5,24 +5,25 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Quiz</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for item in user_quizzes %}
-                <tr>
-                  <th scope="row">{{item.id}}</th>
-                  <td class="w-75">{{item.quiz_name}}</td>
-                  <td><a href="{% url 'add_question' quiz_id=item.id %}"  class="text-danger">Add Questions</a> &nbsp;<a href="{% url 'results' quiz_id=item.id %}" class="text-warning">View Scores</a></td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Quiz</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in user_quizzes %}
+              <tr>
+                <th scope="row">{{item.id}}</th>
+                <td class="w-50">{{item.quiz_name}}</td>
+                <td><a href="{% url 'add_question' quiz_id=item.id %}"  class="text-danger">Add Questions</a> &nbsp;&nbsp;<a href="{% url 'results' quiz_id=item.id %}" class="text-warning">Scores</a>
+                 &nbsp;&nbsp; <a href="{% url 'takequiz' quiz_id=item.id %}" class="text-danger"> Explore </a> </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
           </div>
     </div>
 </div>
