@@ -22,7 +22,12 @@
         <br/>        <br/>
         <p class="card-text h3">With supporting text below as a natural lead-in to additional content.</p>
         <br/>  <br/>
+        {% if user.is_authenticated %}
         <a href="{% url 'add_quiz' %}" class="btn btn-primary">create quiz</a>  <a href="{% url 'explore_quizzes' %}" class="btn btn-primary">explore  quizzes</a>
+        <a href="{% url 'myquizzes' %}" class="btn btn-primary">My Quizzes</a>
+        {% else %}
+        <a href="{% url 'add_quiz' %}" class="btn btn-primary">create quiz</a>  <a href="{% url 'explore_quizzes' %}" class="btn btn-primary">explore  quizzes</a>
+        {% endif %}
       </div>
     </div>
   </div>

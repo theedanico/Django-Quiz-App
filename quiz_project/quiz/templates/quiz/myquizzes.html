@@ -18,7 +18,7 @@
                 <tr>
                   <th scope="row">{{item.id}}</th>
                   <td class="w-75">{{item.quiz_name}}</td>
-                  <td><a href="#"  class="text-danger">Add Questions</a> &nbsp;<a href="#" class="text-warning">Edit</a></td>
+                  <td><a href="{% url 'add_question' quiz_id=item.id %}"  class="text-danger">Add Questions</a> &nbsp;<a href="#" class="text-warning">Edit</a></td>
                 </tr>
                 {% endfor %}
               </tbody>
