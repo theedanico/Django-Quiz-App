@@ -70,11 +70,13 @@ def exploreQuiz(request):
     quiz_set = {'quiz': quiz}
     return render(request, 'quiz/quizlist.html', quiz_set)
 
+@login_required
 def deleteQuestion(request,quiz_id,quest_id):
     if quest_id:
        Question.objects.filter(id = quest_id).delete() 
     return redirect(f"../../question/{quiz_id}")
 
+@login_required
 def editQuestion(request,quiz_id,quest_id):
     questions =  Question.objects.filter(quiz_id = quiz_id).all
     if request.method == "POST":
@@ -106,6 +108,7 @@ def editQuestion(request,quiz_id,quest_id):
        options = Option.objects.filter(quest_id = quest_id).all()
     return render(request, 'quiz/add_question.html',{"itemsQuestions": questions,"selectedQuestion":selectedQuestion,"quiz_id":quiz_id,"options":options})        
 
+@login_required
 def addQuestion(request,quiz_id):
     if request.method == "POST":
         quistionText = request.POST.get('quistion_text')
