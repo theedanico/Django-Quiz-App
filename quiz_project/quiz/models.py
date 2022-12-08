@@ -31,6 +31,7 @@ class Quiz(models.Model):
     quiz_name = models.CharField(max_length=100, null=False)
     description = models.CharField(max_length=500, default='No description added')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='quiz')
+    time_limit_mins = models.PositiveIntegerField()
     is_public = models.BooleanField()
 
     def __str__(self):
@@ -68,6 +69,7 @@ class Score(models.Model):
     email = models.EmailField(max_length=70)
     name = models.CharField(max_length=100)
     score = models.IntegerField()
+    time = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return str(self.quiz)

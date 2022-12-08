@@ -93,7 +93,7 @@ class UpdateProfileForm(forms.ModelForm):
 class QuizForm(forms.ModelForm):
     class Meta:
         model = Quiz
-        fields = ['quiz_name', 'description','is_public']
+        fields = ['quiz_name', 'description','is_public', 'time_limit_mins']
 
 class QuestionForm(forms.ModelForm):
     class Meta:
