@@ -1,70 +1,72 @@
 {% extends 'quiz/home.html'%}
 {% load static %}
-<link rel="stylesheet" href="{% static './css/take_quiz.css'%}" type="text/css"/>
+<link rel="stylesheet" href="{% static './css/take_quiz.css'%}" type="text/css" />
 {% block innercontent %}
 
 <div class="container">
-  <br/>
+  <br />
   <div class="col-mx-auto">
-    
+
     <div align="right " id="displaytimer"><b>Timer: 0 seconds</b></div>
   </div>
-  <form role="form" method="post" >
-<div class="row">
-  <div class="col-md-3">
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">Email address</label>
-      <input type="email" class="form-control" name="email" id="exampleFormControlInput1" placeholder="name@example.com">
-    </div>
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">Name</label>
-      <input type="text" name="name" class="form-control" id="exampleFormControlInput1">
-    </div>
+  <form role="form" method="post">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Email address</label>
+          <input type="email" class="form_quiz" name="email" id="exampleFormControlInput1"
+            placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Name</label><br>
+          <input type="text" name="name" class="form_quiz" id="exampleFormControlInput1">
+        </div>
 
-      {% csrf_token %}
-    <br/>
-  </div>
-  <div class="col-md-9">
-    
-      {% csrf_token %}
-         <h1> {{ quiz.quiz_name }}</h1>
-     <br/>    
-    {% for  question in quiz_content %}
-    <div class="mb-3">
-      <label for="exampleFormControlInput1" class="form-label">{{ question.mQuestion.quistion_text }}</label>
-      {% for  option in question.options %}
-      <div class="form-check">
-        <input class="form-check-input" type="radio" value="{{option.option_text}}" name="{{question.mQuestion.id}}" />
-           <label class="form-check-label" for="option_text">{{option.option_text}}</label>
+        {% csrf_token %}
+        <br />
       </div>
-       {% endfor %}
-    </div>
-    <br/>
-     {% endfor %}
+      <div class="col-md-9">
 
-     <input id='timer' type='hidden' name="timer" value="">
-    <br>
-         <!--data field-->
-         <input type="submit" title="Save Question" class="btn btn-primary col-md-12" /> 
-  </div>
-</div>
-</form>
-{% block script %}
-        <script>
- 
-            console.log('hello world')
-            const timer=document.getElementById('displaytimer')
-            console.log(timer.textContent)
-            const inputtag = document.getElementById('timer')
- 
-            t=0
-            setInterval(()=>{
-                t+=1
-                timer.innerHTML ="<b>Timer: " +t+" seconds</b>"
-                inputtag.value = t
-            },1000)
-        </script>
-    {% endblock script %}
+        {% csrf_token %}
+        <h1> {{ quiz.quiz_name }}</h1>
+        <br />
+        {% for question in quiz_content %}
+        <div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">{{ question.mQuestion.quistion_text }}</label>
+          {% for option in question.options %}
+          <div class="form-check">
+            <input class="option-input radio" type="radio" value="{{option.option_text}}"
+              name="{{question.mQuestion.id}}" />
+            <label class="form-check-label" for="option_text">{{option.option_text}}</label>
+          </div>
+          {% endfor %}
+        </div>
+        <br />
+        {% endfor %}
+
+        <input id='timer' type='hidden' name="timer" value="">
+        <br>
+        <!--data field-->
+        <input type="submit" title="Save Question" class="btn_take_quiz" />
+      </div>
+    </div>
+  </form>
+  {% block script %}
+  <script>
+
+    console.log('hello world')
+    const timer = document.getElementById('displaytimer')
+    console.log(timer.textContent)
+    const inputtag = document.getElementById('timer')
+
+    t = 0
+    setInterval(() => {
+      t += 1
+      timer.innerHTML = "<b>Timer: " + t + " seconds</b>"
+      inputtag.value = t
+    }, 1000)
+  </script>
+  {% endblock script %}
 </div>
 
 
