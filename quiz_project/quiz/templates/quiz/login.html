@@ -28,23 +28,19 @@
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
                                         <div class="form-group">
-                                            <a href="{% url 'social:begin' 'github' %}"
-                                                   class="btn btn-link btn-lg active btn-block">Sign in with GitHub</a>
-                                            <a href="{% url 'social:begin' 'google-oauth2' %}"
-                                                   class="btn btn-link btn-lg active btn-block">Sign in with Google</a>
-                                            <hr>
-                                            <p class="text-center"><strong>OR</strong></p>
-                                            <hr>
-                                            <label class="small mb-1">Username</label>
+                                            <label class="small mb-1">Username</label><br>
+                                            <!-- <input type="text" name="username" placeholder="Username" class="form_log" maxlength="150" required="" id="id_username"> -->
                                             {{ form.username }}
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
                                         <div class="form-group">
                                           <label class="small mb-1">Password</label>
-                                          {{ form.password }}
+                                          <input type="password" name="password" placeholder="Password" class="form_log" data-toggle="password" id="password" maxlength="50" required="">
+                                          <!-- {{ form.password }} -->
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +56,7 @@
                                 <div class="form-row">
                                     <div class="col-md-10 offset-md-1">
                                         <div class="form-group mt-0 mb-1">
-                                          <button name="login" class="col-md-12 btn btn-dark" id="login">Sign in</button>
+                                          <button name="login" class="btn_log" id="login">Sign in</button>
                                         </div>
                                     </div>
                                 </div>
@@ -68,8 +64,8 @@
                         </div>
                         <div class="card-footer text-center">
                             <div class="small">
-                                <a href="{% url 'users-register' %}">Don't have an account yet? Go to signup</a><br>
-                                <a href="{% url 'password_reset' %}"><i>Forgot Password?</i></a>
+                                <a href="{% url 'users-register' %}" class="signup_link">Don't have an account yet? Go to signup</a><br>
+                                <a href="{% url 'password_reset' %}" class="signup_link"><i>Forgot Password?</i></a>
                             </div>
                         </div>
                     </div>

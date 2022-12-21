@@ -2,13 +2,37 @@
 {% block title %} Create Quiz {% endblock %}
 
 {% block innercontent %}
+{% load static %}
+<link rel="stylesheet" href="{% static './css/createQuiz.css'%}" type="text/css"/>
 <br>
 <div class="container">
     <div class="row">
         <div class="col-md-6">
             <form  method="POST"> {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-info">Submit</button>
+                <!-- {{ form.as_p }} -->
+
+                <p>
+                  <label for="id_quiz_name">Quiz name:</label>
+                  <input type="text" name="quiz_name" maxlength="100" required="" id="id_quiz_name" class="form-control">
+                </p>
+                <p>
+                  <label for="id_description">Description:</label>
+                  <input type="text" name="description" value="No description added" maxlength="500" required="" id="id_description" class="form-control">
+                </p>
+                <p>
+                  <label for="id_is_public">Is public:</label>
+                  <input type="checkbox" name="is_public" id="id_is_public">                  
+                </p>
+                <p>
+                  <label for="id_time_limit_mins">Time limit mins:</label>
+                  <input type="number" name="time_limit_mins" min="0" required="" id="id_time_limit_mins" class="form-control">
+                </p>
+
+
+
+
+
+                <button type="submit" class="btn-style">Submit</button>
             </form>
         </div>
         

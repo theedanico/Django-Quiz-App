@@ -2,6 +2,8 @@
 {% block title %} Results {% endblock %}
 
 {% block innercontent %}
+{% load static %}
+<link rel="stylesheet" href="{% static './css/result.css'%}" type="text/css"/>
 <div class="container mt-4">
     <br>
     <table class="table">
@@ -11,6 +13,7 @@
           <th>Email</th>
           <th>Quiz</th>
           <th>Score</th>
+          <th>Time Taken</th>
         </tr>
       </thead>
 {% for mark in marks %}
@@ -19,6 +22,7 @@
 <td>{{mark.email}}</td>
 <td>{{mark.quiz}}</td>
 <td>{{mark.score}}</td>
+<td>{{mark.time}} seconds</td>
 </tr>
 {% endfor %}
 </table>

@@ -1,53 +1,23 @@
 {% extends 'quiz/base.html' %}
 
-{% block content %}
-<nav class="navbar navbar-expand-lg navbar-light  bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">URFU-QUIZ</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-  
-        <ul class="navbar-nav navbar-right">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          {% if user.is_authenticated %}
-          <li class="nav-item">
-            <a href="{% url 'users-profile' %}" class="nav-link">Profile</a>
-            </li>
-            <li class="nav-item">
-            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a href="{% url 'login' %}" class="nav-link">Sign in</a>
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-  
-  </nav>
-        {% if messages %}  
-            {% for message in messages %}
-                {% if message.tags == "success" %}  
-                  <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {% else %}
-                  <div class="alert alert-danger alert-dismissible fade show" role="alert"> 
-                {% endif %}  
-                    {{ message }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-            {% endfor %}
-        {% endif %}
+{% block content %}  
+{% if messages %}  
+    {% for message in messages %}
+        {% if message.tags == "success" %}  
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {% else %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert"> 
+        {% endif %}  
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+    {% endfor %}
+{% endif %}
 
-  {% block innercontent %}
+{% block innercontent %}
 
-  {% endblock innercontent %}
+{% endblock innercontent %}
 
-  {% endblock content %}
+{% endblock content %}

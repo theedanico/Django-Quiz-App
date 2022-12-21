@@ -36,6 +36,7 @@ def takeQuiz(request,quiz_id):
     if request.method == "POST":
         email = request.POST.get('email')
         name = request.POST.get('name')
+        time = request.POST.get('timer')
         if not email or not name:
             messages.error(request, "Email is required ")
             messages.error(request, "Name is required ") 
@@ -52,7 +53,7 @@ def takeQuiz(request,quiz_id):
              else : 
                       messages.error(request, f"Unfortunately you failed to pass quiz :(( you scored {finalScore}") 
                                                            
-        Score.objects.create(quiz=quiz, score=finalScore, name=name,email=email)
+        Score.objects.create(quiz=quiz, score=finalScore, name=name,email=email, time = time)
     return render(request, 'quiz/take_quiz.html',{"quiz_content":quiz_content,"quiz":quiz})
     
 

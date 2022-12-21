@@ -8,28 +8,27 @@
 <div id="carouselExampleSlidesOnly" class="carousel slide col-md-8" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img  src="{% static "cover.jpg" %}" class="d-block w-60 vh-100" >
-      <div class="carousel-caption d-none d-md-block">
+      <img  src="{% static 'slider-img.png' %}" class="img_home" >
+      <div class=" welcome_text">
         <h5>Welcome, {{user.first_name.title|default:'Guest'}}</h5>
-        <p>Find and create free quizzes and train ...</p>
+        <!-- <p>Find and create free quizzes and train ...</p> -->
       </div>
     </div>
     </div>
   </div>
   <div class="col-md-4">
-    <div class="card" style="margin-top: 150px;">
-      <div class="card-body">
-        <br/>        <br/>
-        <p class="card-text h3">Find and create free quizzes and train ...</p>
-        <br/>  <br/>
-        {% if user.is_authenticated %}
-        <a href="{% url 'add_quiz' %}" class="btn btn-primary">create quiz</a>
-          <!-- <a href="{% url 'explore_quizzes' %}" class="btn btn-primary">explore  quizzes</a> -->
-        <a href="{% url 'myquizzes' %}" class="btn btn-primary">My Quizzes</a>
-        {% else %}
-        <a href="{% url 'add_quiz' %}" class="btn btn-primary">create quiz</a>  <a href="{% url 'explore_quizzes' %}" class="btn btn-primary">explore  quizzes</a>
-        {% endif %}
-      </div>
+    <div class="card_body">
+      <br/>        <br/>
+      <p class="card_text">Find and create free quizzes and train ...</p>
+      <br/>  <br/>
+      {% if user.is_authenticated %}
+      <a href="{% url 'add_quiz' %}" class="btn-style btn-home btn-home-link">Create Quiz</a>
+        <!-- <a href="{% url 'explore_quizzes' %}" class="btn btn-primary">explore  quizzes</a> -->
+      <a href="{% url 'myquizzes' %}" class="btn-style btn-home-link">My Quizzes</a>
+      {% else %}
+      <a href="{% url 'add_quiz' %}" class="btn-style btn-home btn-home-link">Create Quiz</a>  
+      <a href="{% url 'explore_quizzes' %}" class="btn-style btn-home-link">Explore  Quizzes</a>
+      {% endif %}
     </div>
   </div>
 </div>

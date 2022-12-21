@@ -1,0 +1,16 @@
+.btn{
+    font: "Nunito", sans-serif;
+    padding: 12px 40px;
+    background-color: #feb543;
+    color: #f9fcfb;
+    border-radius: 25px;
+    -webkit-box-shadow: 0px 2px 7px 0px rgba(32, 50, 117, 0.26);
+    box-shadow: 0px 2px 7px 0px rgba(32, 50, 117, 0.26);
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    border: none;
+}
+.table{
+    font-size: 25px;
+    font: "Nunito", sans-serif;
+}

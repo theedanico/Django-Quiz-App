@@ -1,6 +1,0 @@
-packages installed: django, Pillow, python-dotenv, social-auth-app-django
-
-Everything has been added. The app is working correctly.
-
-
-#fix the design
